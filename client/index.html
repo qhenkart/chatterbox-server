@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>chatterbox</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <!-- your scripts -->
+    <script src="env/config.js"></script>
+    <script src="scripts/app.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>ChatterBox</h1>
+      <!--<form id="usernameset">
+        <input type="text" placeholder='Message here!' id="chatbox" autofocus />
+        <input type="submit" value="Submit" id="submit">
+      </form>-->
+      <form>
+        <input type="text" class="form-control" placeholder="Message Here!" id="chatbox" autofocus />
+        <input type="submit button" value="Submit" class="submit btn btn-primary btn-xs">
+      </form>
+      <!-- Your HTML goes here! -->
+      <div id="chats"></div>
+      <button id="createroom">Create Room</button>
+      <select id="chatrooms">
+        <option selected="selected">lobby</option>
+      </select>
+      <form class='chatroom hidden'>
+        <input type="text" placeholder='Name your new Chatroom' id="chatroombox" autofocus />
+        <input type="submit" value="Submit" id="chatroomsubmit">
+      </form>
+    </div>
+  </body>
+</html>

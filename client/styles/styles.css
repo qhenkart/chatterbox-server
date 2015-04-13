@@ -1,0 +1,128 @@
+body {
+  background: #eee;
+  text-align: center;
+  padding: 0 25px;
+  font-family: arial, sans-serif;
+}
+
+#main {
+  width: 500px;
+  margin: auto;
+  text-align: left;
+  background: white;
+  padding: 50px 60px;
+  border: solid #ddd;
+  border-width: 0 1px 1px 1px;
+  background-color: #bdc3c7;
+}
+
+#main h1 {
+  font-family: Papyrus, fantasy;
+  text-align: center;
+  font-size: 70px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.3999996185303px;
+}
+
+#main h1 span {
+  font-style:italic;
+}
+
+#main ul {
+  padding-left: 20px;
+}
+
+#main .error {
+  border: 1px solid red;
+  background: #FDEFF0;
+  padding: 20px;
+}
+
+#main .success {
+  margin-top: 25px;
+}
+
+#main .success code {
+  font-size: 12px;
+  color: green;
+  line-height: 13px;
+}
+
+form {
+  padding: 20px;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+form input[type=text] {
+  margin-right: 10px;
+  width: 70%;
+  font-size: 12px;
+  padding: 5px;
+}
+
+#chats {
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #95a5a6;
+}
+
+#chats .username {
+  text-align: center;
+  font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+  font-weight: 600;
+
+}
+#chats .username:hover {
+cursor: crosshair;
+}
+
+#chats:hover {
+  background-color: #ddd;
+}
+.text {
+  text-align: center;  
+}
+
+.spinner {
+  float: right;
+  height: 46px;
+  margin-bottom: 5px;
+}
+
+.spinner img {
+  padding: 10px;
+}
+
+.hidden {
+  visibility:hidden;
+}
+
+.friend{
+  font-weight: bold;
+}
+.submit, #chatbox {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  margin-top: 10px;
+}
+#chatbox {
+  height: 50%;
+}
+
+.line-separator{
+
+height:1px;
+
+background:#717171;
+
+border-bottom:1px solid #313030;
+
+}
+
+
+
+
