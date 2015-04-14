@@ -20,7 +20,6 @@ var defaultCorsHeaders = {
 };
 
 var storage = {lobby: []}
-// var storage = {results: []}
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
@@ -39,7 +38,6 @@ var requestHandler = function(request, response) {
   console.log("Serving request type " + request.method + " for url " + request.url);
   // The outgoing status.
   var statusCode = 200;
-  // var results = []
   if(request.method === 'POST'){
     statusCode = 201;
 
@@ -50,16 +48,9 @@ var requestHandler = function(request, response) {
       }else{
         storage[dat.roomname] = [dat]
       }
-
-      // storage.results.push(JSON.parse(data.toString()))
-      // console.log(dat)
-      // console.log(storage.results[dat.roomname])
     });
   }
-  // if(request.method === "GET"){
-  //   results.push(storage.results[request.url.slice(1)])
-  // }
-console.log("this is the one    "+JSON.stringify(storage[request.url.slice(1)]))
+
 
   if(request.url === "/arglebargle"){
     statusCode=404;

@@ -105,7 +105,7 @@ var app = {
   },
 
   addRoom: function(room){
-    app.currentRoom = room;
+    app.currentRoom = room.replace(" ", "_");
     var $option = '<option selected="selected">'+app.currentRoom+'</option>';
     $('#chatrooms').append($option);
     app.fetch();
@@ -150,7 +150,7 @@ $(document).ready(function(){
 
 //checks for changing chatrooms on dropdown
 $("#chatrooms").change(function() {
-  app.currentRoom = this.value.replace(" ", "");
+  app.currentRoom = this.value;
   app.fetch();
 });
 
