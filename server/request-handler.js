@@ -20,6 +20,7 @@ var defaultCorsHeaders = {
 };
 
 var storage = {lobby: []}
+// var storage = JSON.parse(localStorage.getItem("storage"))
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
@@ -50,12 +51,12 @@ var requestHandler = function(request, response) {
       }
     });
   }
-
+// response.sendFile()
 
   if(request.url === "/arglebargle"){
     statusCode=404;
   }
-
+  // localStorage.setItem('storage', JSON.stringify(storage))
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
