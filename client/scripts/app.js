@@ -1,4 +1,3 @@
-
 var app = {
   server: "http://127.0.0.1:3000",
   username: prompt("what is your username?"),
@@ -111,11 +110,8 @@ var app = {
     app.fetch();
   },
 
-  addFriend: function(){
-
-  },
-  handleSubmit: function(){
-
+  changeUser: function(name){
+    app.username = name
   }
 }
 
@@ -141,7 +137,6 @@ $(document).ready(function(){
       'roomname': app.currentRoom
     };
 
-    app.handleSubmit();
     app.send(message);
 
 

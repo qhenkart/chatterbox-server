@@ -20,6 +20,7 @@
   </head>
   <body>
     <div id="main">
+      <div class="title">
       <h1>ChatterBox</h1>
       <!--<form id="usernameset">
         <input type="text" placeholder='Message here!' id="chatbox" autofocus />
@@ -31,13 +32,13 @@
       </form>
       <!-- Your HTML goes here! -->
       <div id="chats"></div>
-      <button id="createroom">Create Room</button>
+      <button class="btn btn-success btn-xs" id="createroom">Create Room</button>
       <select id="chatrooms">
         <option selected="selected">lobby</option>
       </select>
       <form class='chatroom hidden'>
-        <input type="text" placeholder='Name your new Chatroom' id="chatroombox" autofocus />
-        <input type="submit" value="Submit" id="chatroomsubmit">
+        <input type="text" class="form-control" placeholder='Name your new Chatroom' id="chatroombox" autofocus />
+        <input type="submit" class="submit btn btn-success btn-xs" value="Submit" id="chatroomsubmit">
       </form>
     </div>
   </body>
