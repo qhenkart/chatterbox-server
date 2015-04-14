@@ -1,6 +1,7 @@
 
 var app = {
-  server: "https://api.parse.com/1/classes/chatterbox",
+  server: "http://127.0.0.1:3000",
+  username: prompt("what is your username?"),
   currentRoom: 'lobby',
   rooms: {},
   friends: {},
@@ -13,7 +14,7 @@ var app = {
   send: function(message){
     $.ajax({
       // always use this url
-      url: 'https://api.parse.com/1/classes/chatterbox',
+      url: "http://127.0.0.1:3000/"+app.currentRoom,
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(message),
@@ -31,13 +32,14 @@ var app = {
   fetch: function(){
     $.ajax({
       // always use this url
-      url: 'https://api.parse.com/1/classes/chatterbox',
+      url: "http://127.0.0.1:3000/"+app.currentRoom,
       type: 'GET',
       contentType: 'application/json',
-      data:{order:'-createdAt', limit:10, where:'{"roomname":"'+app.currentRoom+'"}'},
+      // data:{order:'reverseOrder', limit:10, roomname: app.currentRoom},
       success: function (data) {
+        var room = app.currentRoom
         $("#chats").html('');
-        _.each(data.results, function(obj){
+        _.each(data, function(obj){
           app.addMessage(obj);
         });
       },
@@ -73,10 +75,10 @@ var app = {
   populateRooms: function(){
     $.ajax({
       // always use this url
-      url: 'https://api.parse.com/1/classes/chatterbox',
+      url: "http://127.0.0.1:3000",
       type: 'GET',
       contentType: 'application/json',
-      data:{order:'-createdAt',limit:100},
+      // data:{order:'reverseOrder',limit:100},
       success: function (data) {
         _.each(data.results, function(obj){
           if(obj.roomname){
@@ -134,10 +136,11 @@ $(document).ready(function(){
   $('.submit').on('click', function(event) {
     event.preventDefault();
     var message = {
-      'username': window.location.search.split('=')[1],
+      'username': app.username,
       'text': $('#chatbox').val(),
       'roomname': app.currentRoom
     };
+
     app.handleSubmit();
     app.send(message);
 
@@ -147,7 +150,7 @@ $(document).ready(function(){
 
 //checks for changing chatrooms on dropdown
 $("#chatrooms").change(function() {
-  app.currentRoom = this.value;
+  app.currentRoom = this.value.replace(" ", "");
   app.fetch();
 });
 

@@ -1,3 +1,4 @@
+var _ = require('underscore')
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -11,7 +12,15 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+var defaultCorsHeaders = {
+  "access-control-allow-origin": "*",
+  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "access-control-allow-headers": "content-type, accept",
+  "access-control-max-age": 10 // Seconds.
+};
 
+var storage = {lobby: []}
+// var storage = {results: []}
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
@@ -28,9 +37,33 @@ var requestHandler = function(request, response) {
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
   console.log("Serving request type " + request.method + " for url " + request.url);
-
   // The outgoing status.
   var statusCode = 200;
+  // var results = []
+  if(request.method === 'POST'){
+    statusCode = 201;
+
+    request.on('data', function (data) {
+      var dat = JSON.parse(data.toString())
+      if(storage[dat.roomname]){
+        storage[dat.roomname].unshift(dat)
+      }else{
+        storage[dat.roomname] = [dat]
+      }
+
+      // storage.results.push(JSON.parse(data.toString()))
+      // console.log(dat)
+      // console.log(storage.results[dat.roomname])
+    });
+  }
+  // if(request.method === "GET"){
+  //   results.push(storage.results[request.url.slice(1)])
+  // }
+console.log("this is the one    "+JSON.stringify(storage[request.url.slice(1)]))
+
+  if(request.url === "/arglebargle"){
+    statusCode=404;
+  }
 
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
@@ -39,21 +72,32 @@ var requestHandler = function(request, response) {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = "text/plain";
+  // //////////////////////////change below//////////////////////////////////////////////////////////
+  headers['Content-Type'] = "application/json";
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
-
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
   // up in the browser.
-  //
+  if(request.method === "GET"){
+    if(JSON.stringify(storage[request.url.slice(1)]) === undefined){
+      response.end(JSON.stringify(storage.lobby))
+    }else{
+
+      response.end(JSON.stringify(storage[request.url.slice(1)]))
+    }
+  }
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end("Hello, World!");
-};
+
+  response.end(JSON.stringify(storage))
+  //storage.results
+};//storage.results[request.url.slice(1)]
+
+
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
@@ -61,15 +105,17 @@ var requestHandler = function(request, response) {
 //
 // Your chat client is running from a url like file://your/chat/client/index.html,
 // which is considered a different domain.
+// ../client/index.html
 //
 // Another way to get around this restriction is to serve you chat
 // client from this domain by setting up static file serving.
-var defaultCorsHeaders = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10 // Seconds.
-};
 
-exports.handleRequest = requestHandler
+exports.requestHandler = requestHandler
+exports.cors = defaultCorsHeaders
 
+     // if(storage.results[dat.roomname]){
+      //   storage.results[dat.roomname].push(dat)
+
+      // }else{
+      //   storage.results[dat.roomname] = [dat]
+      // }
