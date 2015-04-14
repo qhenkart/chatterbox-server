@@ -1,4 +1,11 @@
 var _ = require('underscore')
+
+//initialize local storage
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+  localStorage.setItem('storage', JSON.stringify({lobby:[]}))
+}
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -19,8 +26,8 @@ var defaultCorsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
-var storage = {lobby: []}
-// var storage = JSON.parse(localStorage.getItem("storage"))
+// var storage = {lobby: []}
+var storage = JSON.parse(localStorage.getItem("storage"))
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
@@ -56,7 +63,7 @@ var requestHandler = function(request, response) {
   if(request.url === "/arglebargle"){
     statusCode=404;
   }
-  // localStorage.setItem('storage', JSON.stringify(storage))
+  localStorage.setItem('storage', JSON.stringify(storage))
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
@@ -64,7 +71,6 @@ var requestHandler = function(request, response) {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  // //////////////////////////change below//////////////////////////////////////////////////////////
   headers['Content-Type'] = "application/json";
 
   // .writeHead() writes to the request line and headers of the response,
@@ -74,6 +80,7 @@ var requestHandler = function(request, response) {
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
   // up in the browser.
+  console.log(storage)
   if(request.method === "GET"){
     if(JSON.stringify(storage[request.url.slice(1)]) === undefined){
       response.end(JSON.stringify(storage.lobby))

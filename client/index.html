@@ -7,11 +7,13 @@
     <title>chatterbox</title>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
+    <!-- <link type="text/css" rel="stylesheet" href="styles/simplePagination.css"/> -->
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="scripts/jquery.simplePagination.js"></script> -->
 
 
     <!-- your scripts -->
@@ -20,12 +22,11 @@
   </head>
   <body>
     <div id="main">
-      <div class="title">
       <h1>ChatterBox</h1>
-      <!--<form id="usernameset">
-        <input type="text" placeholder='Message here!' id="chatbox" autofocus />
-        <input type="submit" value="Submit" id="submit">
-      </form>-->
+
+
+
+
       <form>
         <input type="text" class="form-control" placeholder="Message Here!" id="chatbox" autofocus />
         <input type="submit" value="Submit" class="submit btn btn-primary btn-xs">
@@ -36,6 +37,16 @@
       <select id="chatrooms">
         <option selected="selected">lobby</option>
       </select>
+      <button class="btn btn-success btn-xs" id="username">Change Username</button>
+
+      <nav>
+        <ul class="pager">
+          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+          <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+
+
       <form class='chatroom hidden'>
         <input type="text" class="form-control" placeholder='Name your new Chatroom' id="chatroombox" autofocus />
         <input type="submit" class="submit btn btn-success btn-xs" value="Submit" id="chatroomsubmit">
@@ -43,3 +54,9 @@
     </div>
   </body>
 </html>
+
+  <!--    <form id="usernameset">
+        <input type="text" placeholder='Message here!' id="chatbox" />
+        <input type="submit" value="Submit" id="submit">
+      </form>
+ -->

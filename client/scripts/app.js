@@ -1,9 +1,21 @@
+getUsername = function(){
+  if(localStorage.getItem("username")){
+    return JSON.parse(localStorage.getItem("username"))
+  }else{
+    var user = prompt("What is your username?")
+    localStorage.setItem("username", JSON.stringify(user))
+    app.username = user;
+  }
+}
+
 var app = {
   server: "http://127.0.0.1:3000",
-  username: prompt("what is your username?"),
+  username: getUsername(),
   currentRoom: 'lobby',
   rooms: {},
   friends: {},
+  page: 0,
+  messageCount: 0,
 
   init: function(){
       app.fetch();
@@ -38,8 +50,12 @@ var app = {
       success: function (data) {
         var room = app.currentRoom
         $("#chats").html('');
-        _.each(data, function(obj){
-          app.addMessage(obj);
+        app.messageCount = data.length
+        _.each(data, function(obj, index){
+          if(index < 7 + app.page && index > 0 + app.page){
+            app.addMessage(obj);
+
+          }
         });
       },
       error: function (data) {
@@ -79,9 +95,9 @@ var app = {
       contentType: 'application/json',
       // data:{order:'reverseOrder',limit:100},
       success: function (data) {
-        _.each(data.results, function(obj){
-          if(obj.roomname){
-            app.rooms[obj.roomname] = obj.roomname;
+        _.each(data, function(room){
+          if(room){
+            app.rooms[room] = room.roomname;
           }
         });
         app.chatList();
@@ -112,7 +128,9 @@ var app = {
 
   changeUser: function(name){
     app.username = name
-  }
+  },
+
+
 }
 
 
@@ -126,8 +144,11 @@ $(document).ready(function(){
   app.init();
 
 
-
-
+// $("#chats").pagination({
+//    items: 100,
+//    itemsOnPage: 10,
+//    cssStyle: 'light-theme'
+// });
 //checks for sent message
   $('.submit').on('click', function(event) {
     event.preventDefault();
@@ -143,30 +164,49 @@ $(document).ready(function(){
     $('#chatbox').val('');
   });
 
+  $('.previous').on('click', function(event){
+    event.preventDefault();
+    if(app.messageCount > app.page +7){
+      app.page = app.page + 7;
+     app.fetch(app.page)
+    }
+  });
+
+
+  $('.next').on('click', function(event){
+    event.preventDefault();
+    if(app.page - 7 > 0){
+      app.page = app.page - 7;
+    }
+    app.fetch()
+  });
+
 //checks for changing chatrooms on dropdown
-$("#chatrooms").change(function() {
-  app.currentRoom = this.value;
-  app.fetch();
-});
+  $("#chatrooms").change(function() {
+    app.currentRoom = this.value;
+    app.fetch();
+  });
 
-//checks for create new room
-$('#createroom').on('click', function(event){
-  $(".chatroom").toggleClass("hidden")
-});
+  //checks for create new room
+  $('#createroom').on('click', function(event){
+    $(".chatroom").toggleClass("hidden")
+  });
 
-$("#chatroomsubmit").on('click', function(e){
-  event.preventDefault();
-  $(".chatroom").toggleClass("hidden")
-  app.addRoom($('#chatroombox').val());
-});
+  $("#chatroomsubmit").on('click', function(e){
+    event.preventDefault();
+    $(".chatroom").toggleClass("hidden")
+    app.addRoom($('#chatroombox').val());
+  });
 
-$("#chats").on('click','.username', function(e){
-  app.friends[$(this).text()] = $(this).text()
-  app.addFriend();
-  app.fetch();
-});
+  $("#chats").on('click','.username', function(e){
+    app.friends[$(this).text()] = $(this).text()
+    app.fetch();
+  });
 
-
-   setInterval(app.fetch, 15000);
+  $("#username").on('click', function(e){
+    localStorage.clear()
+    getUsername()
+  });
+  setInterval(app.fetch, 15000);
 
 });

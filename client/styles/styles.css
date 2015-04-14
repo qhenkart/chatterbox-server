@@ -84,7 +84,7 @@ cursor: crosshair;
   background-color: #ddd;
 }
 .text {
-  text-align: center;  
+  text-align: center;
 }
 
 .spinner {
@@ -115,12 +115,9 @@ cursor: crosshair;
 }
 
 .line-separator{
-
-height:1px;
-
-background:#717171;
-
-border-bottom:1px solid #313030;
+  height:1px;
+  background:#717171;
+  border-bottom:1px solid #313030;
 
 }
 #chatroombox{
@@ -131,6 +128,7 @@ border-bottom:1px solid #313030;
   float:left;
 
 }
-
-
+#username {
+  float:right;
+}
 
