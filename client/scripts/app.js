@@ -52,7 +52,7 @@ var app = {
         $("#chats").html('');
         app.messageCount = data.length
         _.each(data, function(obj, index){
-          if(index < 7 + app.page && index > 0 + app.page){
+          if(index <= 7 + app.page && index >= 0 + app.page){
             app.addMessage(obj);
 
           }
