@@ -132,3 +132,11 @@ cursor: crosshair;
   float:right;
 }
 
+.pager a{
+  width: 75px;
+  height: 25px;
+  font-size:10px;
+}
+
+
+
